@@ -1,5 +1,5 @@
-### Link do Repositório: 
-### Link do projeto no gitPages: 
+### Link do Repositório: (https://github.com/sprint1-webdev/sprint1_webdev.git)
+### Link do projeto no gitPages:(https://github.com/sprint1-webdev/sprint1_webdev/blob/main/css/estilo.css),(https://github.com/sprint1-webdev/sprint1_webdev/blob/main/js/script.js),(https://github.com/sprint1-webdev/sprint1_webdev/blob/main/contato.html), (https://github.com/sprint1-webdev/sprint1_webdev/blob/main/index.html),(https://github.com/sprint1-webdev/sprint1_webdev/blob/main/login.html), (https://github.com/sprint1-webdev/sprint1_webdev/blob/main/sobre.html).
 
 # Mahindra
 
