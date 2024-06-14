@@ -1,21 +1,3 @@
-// ALTERNANDO AS CORES DO BACKGROUND DA PÁGINA
-
-// Declarando as variáveis
-let body = document.querySelector('body');
-let classCores = ['cor1', 'cor2', 'cor3'];
-let indexCor = 0;
-let timeCor = 3000;
-
-function alternarCores() {
-    body.setAttribute('class', `${classCores[indexCor]}`);
-    indexCor++;
-
-    if (indexCor == classCores.length) {
-        indexCor = 0;
-    }
-    setTimeout('alternarCores()', timeCor);
-}
-alternarCores();
 
 // CRIANDO UM SLIDESHOW AUTOMÁTICO
 

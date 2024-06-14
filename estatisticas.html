@@ -3,9 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="./css/estilo.css">
+    <title>Estatisticas</title>
 </head>
 <body>
-    
+    <header id="header">
+        <a href="index.html" class="logo">Mahindra</a>
+        <nav>
+            <ul class="nav__links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="FormulaE.html">Formula E</a></li>
+                <li><a href="agenda.html">Datas e Horários</a></li>
+                <li><a href="#">Estatísticas</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+        <a href="login.html"><button id="login__btn">Login</button></a>
+    </header>
+
+
+    <h1>Estatísticas dos Corredores da Fórmula E</h1>
+    <table id="statsTable">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Equipe</th>
+                <th>Média de Pontos</th>
+                <th>Posição Média de Chegada</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <canvas id="pointsChart" width="400" height="200"></canvas>
+    <canvas id="positionsChart" width="400" height="200"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Dados dos corredores em formato JSON
+        const corredores = [
+            {"nome": "Piloto 1", "equipe": "Equipe A", "pontos": 120, "posicoes_chegada": [1, 3, 5]},
+            {"nome": "Piloto 2", "equipe": "Equipe B", "pontos": 100, "posicoes_chegada": [2, 4, 6]},
+            {"nome": "Piloto 3", "equipe": "Equipe A", "pontos": 90, "posicoes_chegada": [3, 2, 4]},
+            {"nome": "Piloto 4", "equipe": "Equipe C", "pontos": 110, "posicoes_chegada": [1, 1, 2]}
+        ];
+
+        // Função para calcular a média
+        function calcularMedia(arr) {
+            const soma = arr.reduce((a, b) => a + b, 0);
+            return soma / arr.length;
+        }
+
+        // Calcular estatísticas
+        const stats = corredores.map(corredor => {
+            const mediaPontos = corredor.pontos;
+            const posicaoMediaChegada = calcularMedia(corredor.posicoes_chegada);
+            return {
+                nome: corredor.nome,
+                equipe: corredor.equipe,
+                mediaPontos: mediaPontos,
+                posicaoMediaChegada: posicaoMediaChegada
+            };
+        });
+
+        // Adicionar dados na tabela
+        const tbody = document.getElementById('statsTable').getElementsByTagName('tbody')[0];
+        stats.forEach(stat => {
+            const row = tbody.insertRow();
+            row.insertCell().innerText = stat.nome;
+            row.insertCell().innerText = stat.equipe;
+            row.insertCell().innerText = stat.mediaPontos;
+            row.insertCell().innerText = stat.posicaoMediaChegada;
+        });
+
+        // Preparar dados para os gráficos
+        const equipes = [...new Set(corredores.map(corredor => corredor.equipe))];
+        const pontosPorEquipe = equipes.map(equipe => {
+            const pontosEquipe = corredores.filter(corredor => corredor.equipe === equipe).map(corredor => corredor.pontos);
+            return calcularMedia(pontosEquipe);
+        });
+
+        const posicoesPorEquipe = equipes.map(equipe => {
+            const posicoesEquipe = corredores.filter(corredor => corredor.equipe === equipe).flatMap(corredor => corredor.posicoes_chegada);
+            return calcularMedia(posicoesEquipe);
+        });
+
+        // Gráfico de Média de Pontos por Equipe
+        const ctxPoints = document.getElementById('pointsChart').getContext('2d');
+        new Chart(ctxPoints, {
+            type: 'bar',
+            data: {
+                labels: equipes,
+                datasets: [{
+                    label: 'Média de Pontos por Equipe',
+                    data: pontosPorEquipe,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Gráfico de Posição Média de Chegada por Equipe
+        const ctxPositions = document.getElementById('positionsChart').getContext('2d');
+        new Chart(ctxPositions, {
+            type: 'bar',
+            data: {
+                labels: equipes,
+                datasets: [{
+                    label: 'Posição Média de Chegada por Equipe',
+                    data: posicoesPorEquipe,
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+    <footer>
+        <p>Mahindra © 2024 - Todos os direitos reservados</p>
+    </footer>
+    <!-- JAVASCRIPT EXTERNO-->
+    <script src="./js/script.js"></script>
 </body>
 </html>
