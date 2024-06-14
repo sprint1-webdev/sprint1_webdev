@@ -306,6 +306,12 @@ footer {
     margin: auto;
 }
 
+#imgSobre1 {
+    width: 50%;
+    display: block;
+    margin: auto;
+}
+
 .conteudoDesenvolvimento {
     display: flex;
 }
@@ -329,4 +335,16 @@ footer {
 .conteudoDesenvolvimento__direito {
     width: 50%;
     margin: 40px;
+}
+
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.th, td {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
 }
